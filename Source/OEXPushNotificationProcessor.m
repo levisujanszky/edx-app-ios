@@ -7,6 +7,7 @@
 //
 
 #import "OEXPushNotificationProcessor.h"
+#import "OEXPushNotificationManager.h"
 #import "edX-Swift.h"
 #import "OEXAnalytics.h"
 #import "NSString+OEXFormatting.h"
@@ -80,12 +81,17 @@ static NSString* const OEXPushSpawnStateKey = @"OEXPushSpawnStateKey";
 }
 
 - (void)spawnLocalNotificationWithAction:(OEXPushAction)action userInfo:(NSDictionary*)userInfo {
-    UILocalNotification* notification = [[UILocalNotification alloc] init];
-    notification.userInfo = userInfo;
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.userInfo = userInfo;
+    content.body = [self bodyForAction:action userInfo:userInfo];
     
-    notification.alertBody = [self bodyForAction:action userInfo:userInfo];
+    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:content.body content:content trigger:trigger];
     
-    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        NSLog(@"Notification created");
+    }];
 }
 
 - (void)handleNotificationActionWithUserInfo:(NSDictionary*)userInfo {

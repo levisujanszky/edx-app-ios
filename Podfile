@@ -33,14 +33,15 @@ end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
-	puts target.name
-        #for i in 0..target.headers_build_phase.files.length - 1
-        #    build_file = target.headers_build_phase.files[i]
-        #    build_file.settings = { 'ATTRIBUTES' => ['Public']}
-        #end
-        target.build_configurations.each do |config|
-            config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
-            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+	if target.respond_to?(:headers_build_phase)
+          for i in 0..target.headers_build_phase.files.length - 1
+              build_file = target.headers_build_phase.files[i]
+              build_file.settings = { 'ATTRIBUTES' => ['Public']}
+          end
+          target.build_configurations.each do |config|
+              config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
+              config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+          end
         end
     end
 end

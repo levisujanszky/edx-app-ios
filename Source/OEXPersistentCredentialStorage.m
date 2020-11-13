@@ -59,11 +59,11 @@
 }
 
 - (OEXAccessToken*)storedAccessToken {
-    return [OEXAccessToken accessTokenWithData:[[self loadService:kCredentialsService] objectForKey:kAccessTokenKey]];
+    return [OEXAccessToken accessTokenWithData:[[self loadService:kCredentialsService class:NSDictionary.class] objectForKey:kAccessTokenKey]];
 }
 
 - (OEXUserDetails*)storedUserDetails {
-    NSData* data = [[self loadService:kCredentialsService] objectForKey:kUserDetailsKey];
+    NSData* data = [[self loadService:kCredentialsService class:NSDictionary.class] objectForKey:kUserDetailsKey];
     if(data && [data isKindOfClass:[NSData class]]) {
         return [[OEXUserDetails alloc] initWithUserDetailsData:data];
     }
@@ -76,14 +76,14 @@
     OSStatus result;
     NSMutableDictionary* keychainQuery = [self getKeychainQuery:service];
     SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
-    [keychainQuery setObject:[NSKeyedArchiver archivedDataWithRootObject:data] forKey:(__bridge id)kSecValueData];
+    [keychainQuery setObject:[NSKeyedArchiver archivedDataWithRootObject:data requiringSecureCoding:false error:nil] forKey:(__bridge id)kSecValueData];
     result = SecItemAdd((__bridge CFDictionaryRef)keychainQuery, NULL);
 #ifdef DEBUG
     NSAssert(result == noErr, @"Could not add credential to keychain");
 #endif
 }
 
-- (id)loadService:(NSString*)service {
+- (id)loadService:(NSString*)service class:(Class)aClass {
     id ret = nil;
     NSMutableDictionary* keychainQuery = [self getKeychainQuery:service];
     [keychainQuery setObject:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
@@ -92,7 +92,8 @@
     if(SecItemCopyMatching((__bridge CFDictionaryRef)keychainQuery, (CFTypeRef*)&keyData) == noErr) {
         // TODO: Replace this with code that doesn't raise and swallow exceptions
         @try {
-            ret = [NSKeyedUnarchiver unarchiveObjectWithData:(__bridge NSData*)keyData];
+            ret = [NSKeyedUnarchiver unarchivedObjectOfClass:aClass fromData:(__bridge NSData*)keyData error:nil];
+
         }
         @catch(NSException* e) {
             OEXLogInfo(@"STORAGE", @"Unarchive of %@ failed: %@", service, e);

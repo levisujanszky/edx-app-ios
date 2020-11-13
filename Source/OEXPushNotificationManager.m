@@ -124,4 +124,8 @@
     }
 }
 
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    [self didReceiveLocalNotificationWithUserInfo:notification.request.content.userInfo];
+}
+
 @end

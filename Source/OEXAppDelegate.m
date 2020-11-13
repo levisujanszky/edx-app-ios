@@ -142,10 +142,6 @@
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    [self.environment.pushNotificationManager didReceiveLocalNotificationWithUserInfo:notification.userInfo];
-}
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [self.environment.pushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
@@ -276,11 +272,9 @@
 - (void)fetchRemoteConfig {
     [self.firebaseRemoteConfig fetchWithCompletionHandler:^(FIRRemoteConfigFetchStatus status, NSError *error) {
         if (status == FIRRemoteConfigFetchStatusSuccess) {
-            
-            [self.firebaseRemoteConfig activateWithCompletionHandler:^(NSError * _Nullable error) {
+            [self.firebaseRemoteConfig activateWithCompletion:^(BOOL changed, NSError * _Nullable error) {
                 [self.environment.remoteConfig initializeWithRemoteConfig:self.firebaseRemoteConfig];
             }];
-            
         } else {
             NSLog(@"Error %@", error.localizedDescription);
         }

@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '12.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
 
@@ -10,7 +10,7 @@ pod 'Analytics', '~> 3.6.10'
 pod 'Segment-GoogleAnalytics', '~> 1.2.0'
 pod 'DateTools', '~> 1.6.1'
 pod 'GoogleSignIn', '~> 5.0.2'
-pod 'Masonry', '~> 0.6'
+pod 'Masonry'
 pod 'NewRelicAgent', '~> 4.1'
 pod 'FBSDKCoreKit', '= 5.5.0'
 pod 'FBSDKLoginKit', '= 5.5.0'
@@ -33,13 +33,14 @@ end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
-        for i in 0..target.headers_build_phase.files.length - 1
-            build_file = target.headers_build_phase.files[i]
-            build_file.settings = { 'ATTRIBUTES' => ['Public']}
-        end
+	puts target.name
+        #for i in 0..target.headers_build_phase.files.length - 1
+        #    build_file = target.headers_build_phase.files[i]
+        #    build_file.settings = { 'ATTRIBUTES' => ['Public']}
+        #end
         target.build_configurations.each do |config|
             config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
-            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
         end
     end
 end

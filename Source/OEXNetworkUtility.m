@@ -20,7 +20,7 @@
     OEXZeroRatingConfig* zeroRatedConfig = [config zeroRatingConfig];
     NSArray* zeroRatedCarriers = [zeroRatedConfig carriers];
     CTTelephonyNetworkInfo* networkInfo = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier* carrier = [networkInfo subscriberCellularProvider];
+    CTCarrier* carrier = [networkInfo serviceSubscriberCellularProviders].allValues.firstObject;
     // Get carrier name
     NSString* carrierCode = [carrier mobileNetworkCode];
     return [zeroRatedCarriers containsObject:carrierCode];

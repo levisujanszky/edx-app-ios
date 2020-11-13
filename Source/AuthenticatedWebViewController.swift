@@ -140,7 +140,7 @@ public class AuthenticatedWebViewController: UIViewController, WKNavigationDeleg
         
         super.init(nibName: nil, bundle: nil)
         
-        automaticallyAdjustsScrollViewInsets = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         webController.view.accessibilityIdentifier = "AuthenticatedWebViewController:authenticated-web-view"
         addObservers()
     }
@@ -283,7 +283,7 @@ public class AuthenticatedWebViewController: UIViewController, WKNavigationDeleg
         switch navigationAction.navigationType {
         case .linkActivated, .formSubmitted, .formResubmitted:
             if let URL = navigationAction.request.url, webViewDelegate?.webView(webView, shouldLoad: navigationAction.request) ?? true {
-                UIApplication.shared.openURL(URL)
+                UIApplication.shared.open(URL, options: [:])
             }
             decisionHandler(.cancel)
         default:

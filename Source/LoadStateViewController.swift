@@ -22,8 +22,8 @@ public enum LoadState {
         switch self {
         case .Initial: return nil
         case .Loaded: return nil
-        case let .Empty(info): return info.accessibilityMessage
-        case let .Failed(info): return info.accessibilityMessage
+        case let .Empty(_, _, _, accessibilityMessage, _): return accessibilityMessage
+        case let .Failed(_, _, _, _, accessibilityMessage, _): return accessibilityMessage
         }
     }
     
@@ -43,7 +43,7 @@ public enum LoadState {
     
     var isError : Bool {
         switch self {
-        case .Failed(_): return true
+        case .Failed: return true
         default: return false
         }
     }
@@ -200,41 +200,41 @@ class LoadStateViewController : UIViewController {
             case .Loaded:
                 alphas = (loading : 0, message : 0, content : 1, touchable : false)
                 owner.showOfflineSnackBarIfNecessary()
-            case let .Empty(info):
-                owner.messageView.buttonInfo = info.buttonInfo
+            case let .Empty(icon, message, attributedMessage, _, buttonInfo):
+                owner.messageView.buttonInfo = buttonInfo
                 UIView.performWithoutAnimation {
-                    if let message = info.attributedMessage {
+                    if let message = attributedMessage {
                         owner.messageView.attributedMessage = message
                     }
                     else {
-                        owner.messageView.message = info.message
+                        owner.messageView.message = message
                     }
-                    owner.messageView.icon = info.icon
+                    owner.messageView.icon = icon
                 }
                 alphas = (loading : 0, message : 1, content : 0, touchable : true)
-            case let .Failed(info):
-                owner.messageView.buttonInfo = info.buttonInfo
+            case let .Failed(error, icon, message, attributedMessage, _, buttonInfo):
+                owner.messageView.buttonInfo = buttonInfo
                 UIView.performWithoutAnimation {
-                    if let error = info.error, error.oex_isNoInternetConnectionError {
+                    if let error = error, error.oex_isNoInternetConnectionError {
                         owner.messageView.showError(message: Strings.networkNotAvailableMessageTrouble, icon: .InternetError)
                     }
-                    else if let error = info.error as? OEXAttributedErrorMessageCarrying {
-                        owner.messageView.showError(message: error.attributedDescription(withBaseStyle: owner.messageStyle), icon: info.icon)
+                    else if let error = error as? OEXAttributedErrorMessageCarrying {
+                        owner.messageView.showError(message: error.attributedDescription(withBaseStyle: owner.messageStyle), icon: icon)
                     }
-                    else if let message = info.attributedMessage {
-                        owner.messageView.showError(message: message, icon: info.icon)
+                    else if let message = attributedMessage {
+                        owner.messageView.showError(message: message, icon: icon)
                     }
-                    else if let message = info.message {
-                        owner.messageView.showError(message: message, icon: info.icon)
+                    else if let message = message {
+                        owner.messageView.showError(message: message, icon: icon)
                     }
-                    else if let error = info.error, error.errorIsThisType(NSError.oex_unknownNetworkError()) {
-                        owner.messageView.showError(message: Strings.unknownError, icon: info.icon)
+                    else if let error = error, error.errorIsThisType(NSError.oex_unknownNetworkError()) {
+                        owner.messageView.showError(message: Strings.unknownError, icon: icon)
                     }
-                    else if let error = info.error, error.errorIsThisType(NSError.oex_outdatedVersionError()) {
+                    else if let error = error, error.errorIsThisType(NSError.oex_outdatedVersionError()) {
                         owner.messageView.setupForOutdatedVersionError()
                     }
                     else {
-                        owner.messageView.showError(message: info.error?.localizedDescription, icon: info.icon)
+                        owner.messageView.showError(message: error?.localizedDescription, icon: icon)
                     }
                 }
                 alphas = (loading : 0, message : 1, content : 0, touchable : true)

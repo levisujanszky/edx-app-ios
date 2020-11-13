@@ -23,8 +23,8 @@ class CertificateViewController: UIViewController, InterfaceOrientationOverridin
         self.environment = environment
 
         super.init(nibName: nil, bundle: nil)
-
-        automaticallyAdjustsScrollViewInsets = false
+        
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
     }
 
     required init?(coder aDecoder: NSCoder) {

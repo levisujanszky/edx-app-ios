@@ -125,7 +125,7 @@ class RatingViewController: UIViewController, RatingContainerDelegate {
     private func sendUserToAppStore() {
         guard let url = NSURL(string: environment.config.appReviewURI ?? "") else { return }
         if UIApplication.shared.canOpenURL(url as URL) {
-            UIApplication.shared.openURL(url as URL)
+            UIApplication.shared.open(url as URL, options: [:])
         }
     }
     

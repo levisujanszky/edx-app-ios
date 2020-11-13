@@ -114,7 +114,7 @@ class VideoBlockViewController : OfflineSupportViewController, CourseBlockViewCo
         view.backgroundColor = OEXStyles.shared().standardBackgroundColor()
         view.setNeedsUpdateConstraints()
         
-        NotificationCenter.default.oex_addObserver(observer: self, name: UIAccessibilityVoiceOverStatusChanged) { (_, observer, _) in
+        NotificationCenter.default.oex_addObserver(observer: self, name: UIAccessibility.voiceOverStatusDidChangeNotification.rawValue) { (_, observer, _) in
             observer.setAccessibility()
         }
         chromeCastManager.viewExpanded = false
@@ -352,7 +352,7 @@ class VideoBlockViewController : OfflineSupportViewController, CourseBlockViewCo
     private func showYoutubeMessage(url: NSURL) {
         let buttonInfo = MessageButtonInfo(title: Strings.Video.viewOnYoutube) {
             if UIApplication.shared.canOpenURL(url as URL){
-                UIApplication.shared.openURL(url as URL)
+                UIApplication.shared.open(url as URL, options: [:])
             }
         }
         loadController.state = LoadState.empty(icon: .CourseVideos, message: Strings.Video.onlyOnYoutube, attributedMessage: nil, accessibilityMessage: nil, buttonInfo: buttonInfo)

@@ -5788,7 +5788,6 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Libraries/",
 					"$(PROJECT_DIR)/Libraries/Cast",
-					"$(PROJECT_DIR)/MSAL",
 					"$(PROJECT_DIR)/Libraries/MSAL",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -5865,7 +5864,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Libraries/SnapKit/OCMock",
+					"$(PROJECT_DIR)/Libraries/OCMock",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = edXTests;
@@ -6053,10 +6052,19 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Pods/**",
+					"${PROJECT_DIR}/Libraries/**",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/Headers/Public\"/**";
 				INFOPLIST_FILE = Test/EndToEnd/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Libraries/**",
+					"${PROJECT_DIR}/Pods/**",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.EndToEndTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6078,10 +6086,19 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Pods/**",
+					"${PROJECT_DIR}/Libraries/**",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/Headers/Public\"/**";
 				INFOPLIST_FILE = Test/EndToEnd/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Libraries/**",
+					"${PROJECT_DIR}/Pods/**",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.EndToEndTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6102,10 +6119,19 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Pods/**",
+					"${PROJECT_DIR}/Libraries/**",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/Headers/Public\"/**";
 				INFOPLIST_FILE = Test/EndToEnd/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Libraries/**",
+					"${PROJECT_DIR}/Pods/**",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.EndToEndTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6249,7 +6275,6 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Libraries/",
 					"$(PROJECT_DIR)/Libraries/Cast",
-					"$(PROJECT_DIR)/MSAL",
 					"$(PROJECT_DIR)/Libraries/MSAL",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -6297,7 +6322,6 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Libraries/",
 					"$(PROJECT_DIR)/Libraries/Cast",
-					"$(PROJECT_DIR)/MSAL",
 					"$(PROJECT_DIR)/Libraries/MSAL",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -6374,7 +6398,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Libraries/SnapKit/OCMock",
+					"$(PROJECT_DIR)/Libraries/OCMock",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = edXTests;
@@ -6435,7 +6459,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Libraries/SnapKit/OCMock",
+					"$(PROJECT_DIR)/Libraries/OCMock",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = edXTests;

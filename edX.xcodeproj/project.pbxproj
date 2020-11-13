@@ -3100,7 +3100,8 @@
 				77E6479D1C90C10300B6740D /* Tests */,
 				77E6481F1C90DD6B00B6740D /* Supporting Files */,
 			);
-			path = Core;
+			name = Core;
+			path = Source/Core;
 			sourceTree = "<group>";
 		};
 		77E6479D1C90C10300B6740D /* Tests */ = {
@@ -3112,8 +3113,8 @@
 				77E647B41C90C22D00B6740D /* Supporting Files */,
 			);
 			name = Tests;
-			path = Core/Test;
-			sourceTree = SOURCE_ROOT;
+			path = Test;
+			sourceTree = "<group>";
 		};
 		77E647B11C90C21100B6740D /* App */ = {
 			isa = PBXGroup;
